@@ -11,7 +11,7 @@ struct SettingsView: View {
     // MARK: - PROPERTIES
     
     @Environment(\.presentationMode) var presentationMode
-    
+    @AppStorage("isOnboarding") var isOnboarding: Bool = false
     // MARK: - BODY
     var body: some View {
         NavigationView {
@@ -37,6 +37,29 @@ struct SettingsView: View {
                     }
                     //MARK: - Section 2
                     
+                    GroupBox(label: SettingsLabelView(labelText: "Customization", labelImage: "paintbrush"))
+                    {
+                        Divider().padding(.vertical, 5)
+                        Text("You can restart the Onboarding section if you wish, only you need to switch the toogle button below and the onboarding screen proceess will be again!")
+                            .padding(.vertical, 8)
+                            .frame(minWidth: 60)
+                            .layoutPriority(1)
+                            .font(.footnote)
+                            .multilineTextAlignment(.leading)
+                        Toggle(isOn: $isOnboarding) {
+                            if isOnboarding {
+                                Text("Restarted".uppercased())
+                                    .fontWeight(.bold)
+                                    .foregroundColor(Color.green)
+                            } else {
+                                Text("Restart")
+                                    .fontWeight(.bold)
+                                    .foregroundColor(Color.secondary)
+                            }
+                        }
+                        .padding()
+                        .background(Color(UIColor.tertiarySystemBackground).clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous)))
+                    }
                     //MARK: - Section 3
                     GroupBox(label: SettingsLabelView(labelText: "Aplication", labelImage: "apps.iphone")) {
                         
